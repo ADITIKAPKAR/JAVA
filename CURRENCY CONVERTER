@@ -1,0 +1,100 @@
+import java.util.Scanner;
+public class CurrencyConverter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to Currency Converter!");
+
+        System.out.print("Enter the amount to convert: ");
+        double amount = scanner.nextDouble();
+
+        System.out.print("Enter the source currency code: ");
+        String sourceCurrency = scanner.next().toUpperCase();
+
+        System.out.print("Enter the target currency code: ");
+        String targetCurrency = scanner.next().toUpperCase();
+
+        double convertedAmount = convertCurrency(amount, sourceCurrency, targetCurrency);
+        System.out.println(amount + " " + sourceCurrency + " = " + convertedAmount + " " + targetCurrency);
+
+        scanner.close();
+    }
+
+    public static double convertCurrency(double amount, String sourceCurrency, String targetCurrency) {
+        // Exchange rates as of the knowledge cutoff date (2021-09)
+        double usdToEurRate = 0.85;
+        double usdToGbpRate = 0.72;
+        double usdToInrRate = 73.0;
+        double eurToGbpRate = 0.85 / 0.72;
+        double eurToInrRate = 73.0 / 0.85;
+        double gbpToInrRate = 73.0 / 0.72;
+
+        double convertedAmount;
+
+        if (sourceCurrency.equals("USD")) {
+            switch (targetCurrency) {
+                case "EUR":
+                    convertedAmount = amount * usdToEurRate;
+                    break;
+                case "GBP":
+                    convertedAmount = amount * usdToGbpRate;
+                    break;
+                case "INR":
+                    convertedAmount = amount * usdToInrRate;
+                    break;
+                default:
+                    convertedAmount = amount;
+                    break;
+            }
+        } else if (sourceCurrency.equals("EUR")) {
+            switch (targetCurrency) {
+                case "USD":
+                    convertedAmount = amount / usdToEurRate;
+                    break;
+                case "GBP":
+                    convertedAmount = amount * eurToGbpRate;
+                    break;
+                case "INR":
+                    convertedAmount = amount * eurToInrRate;
+                    break;
+                default:
+                    convertedAmount = amount;
+                    break;
+            }
+        } else if (sourceCurrency.equals("GBP")) {
+            switch (targetCurrency) {
+                case "USD":
+                    convertedAmount = amount / usdToGbpRate;
+                    break;
+                case "EUR":
+                    convertedAmount = amount / eurToGbpRate;
+                    break;
+                case "INR":
+                    convertedAmount = amount * gbpToInrRate;
+                    break;
+                default:
+                    convertedAmount = amount;
+                    break;
+            }
+        } else if (sourceCurrency.equals("INR")) {
+            switch (targetCurrency) {
+                case "USD":
+                    convertedAmount = amount / usdToInrRate;
+                    break;
+                case "EUR":
+                    convertedAmount = amount / eurToInrRate;
+                    break;
+                case "GBP":
+                    convertedAmount = amount / gbpToInrRate;
+                    break;
+                default:
+                    convertedAmount = amount;
+                    break;
+            }
+        } else {
+            convertedAmount = amount;
+        }
+
+        return convertedAmount;
+    }
+}
