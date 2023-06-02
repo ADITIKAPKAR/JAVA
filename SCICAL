@@ -1,0 +1,72 @@
+import java.util.Scanner;
+
+public class ScientificCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double num1, num2;
+        String operator;
+
+        System.out.print("Enter the first number: ");
+        num1 = scanner.nextDouble();
+
+        System.out.print("Enter an operator (+, -, *, /, sin, cos, tan): ");
+        operator = scanner.next();
+
+        if (operator.equals("sin") || operator.equals("cos") || operator.equals("tan")) {
+            // Handle trigonometric functions
+            double result = calculateTrigonometric(num1, operator);
+            System.out.println("Result: " + result);
+        } else {
+            // Handle basic arithmetic operations
+            System.out.print("Enter the second number: ");
+            num2 = scanner.nextDouble();
+
+            double result = calculate(num1, num2, operator);
+            System.out.println("Result: " + result);
+        }
+    }
+
+    private static double calculate(double num1, double num2, String operator) {
+        double result = 0.0;
+
+        switch (operator) {
+            case "+":
+                result = num1 + num2;
+                break;
+            case "-":
+                result = num1 - num2;
+                break;
+            case "*":
+                result = num1 * num2;
+                break;
+            case "/":
+                result = num1 / num2;
+                break;
+            default:
+                System.out.println("Invalid operator!");
+        }
+
+        return result;
+    }
+
+    private static double calculateTrigonometric(double num, String operator) {
+        double result = 0.0;
+        double radians = Math.toRadians(num);
+
+        switch (operator) {
+            case "sin":
+                result = Math.sin(radians);
+                break;
+            case "cos":
+                result = Math.cos(radians);
+                break;
+            case "tan":
+                result = Math.tan(radians);
+                break;
+            default:
+                System.out.println("Invalid operator!");
+        }
+
+        return result;
+    }
+}
