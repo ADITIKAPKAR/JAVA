@@ -1,0 +1,50 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class SearchEngine {
+    private List<String> documents;
+
+    public SearchEngine() {
+        documents = new ArrayList<>();
+    }
+
+    public void addDocument(String document) {
+        documents.add(document);
+    }
+
+    public List<String> search(String query) {
+        List<String> results = new ArrayList<>();
+
+        for (String document : documents) {
+            if (document.toLowerCase().contains(query.toLowerCase())) {
+                results.add(document);
+            }
+        }
+
+        return results;
+    }
+
+    public static void main(String[] args) {
+        SearchEngine searchEngine = new SearchEngine();
+        searchEngine.addDocument("Hey, my name is Aditi Kapkar and i'm a college student in Nagpur");
+        searchEngine.addDocument("I'm currently pursuing B.E in Computer Technology branch.");
+        searchEngine.addDocument("This is my Search Engine Project for LGM Internship");
+        searchEngine.addDocument("I've created a Scientific Calculator, Tic Tac Toe game and a Currency Calculator");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter search query: ");
+        String query = scanner.nextLine();
+
+        List<String> results = searchEngine.search(query);
+
+        if (results.isEmpty()) {
+            System.out.println("No results found.");
+        } else {
+            System.out.println("Search results:");
+            for (String result : results) {
+                System.out.println(result);
+            }
+        }
+    }
+}
